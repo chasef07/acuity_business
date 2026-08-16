@@ -1,0 +1,4 @@
+interface:
+  display_name: "Acuity Wiki"
+  short_description: "Turn verified work into durable Acuity knowledge"
+  default_prompt: "Use $acuity-wiki to promote this verified worker proof into the Acuity wiki."

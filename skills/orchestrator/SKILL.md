@@ -1,82 +1,75 @@
 ---
 name: orchestrator
-description: "Turn goals, tasks, and scheduled wakeups into bounded visible worker-thread execution. Use for multi-step goals, thread delegation, worker monitoring, and synthesizing worker outputs."
+description: "Turn goals, tasks, scheduled wakeups, and AcuityLoops work into bounded worker-thread execution. Use when deciding what should happen next, creating or monitoring worker threads, closing delegated work with proof, updating a task pipeline, or promoting verified proof into durable wiki knowledge."
 ---
 
 # Orchestrator
 
-Control plane. Keep the root thread light. Understand the goal, split the work, deploy workers, check progress, synthesize results, and report back.
+Keep the root thread light. Convert intent into bounded work, send the work to the right place, then close it with proof.
 
-The orchestrator reads enough to route correctly. Workers do deep execution.
+## Primitive
+
+```text
+Goal -> Task -> Worker Thread -> Proof -> Close -> Wiki Candidate
+```
+
+Workers execute. The orchestrator routes, monitors, and closes.
 
 ## Loop
 
 1. Define done.
-   - What outcome, artifact, proof, deadline, or decision matters?
-   - If done is unclear and guessing would waste work, ask first.
+   - What artifact, PR, decision, proof, or outcome closes this?
 
-2. Split work.
-   - Break the goal into independent workstreams.
-   - Keep each workstream bounded by one repo, domain, artifact, or task.
-   - Do not create workers for vague, weak, or purely speculative work.
+2. Choose the lane.
+   - `manual`: Chase should do it.
+   - `worker`: a Codex thread should do it.
+   - `automation`: a standing loop should do it.
+   - `decision`: Chase must choose before work proceeds.
+   - `no action`: not useful now.
 
-3. Classify.
-   - `No action`: not useful now.
-   - `Monitor`: watch, but do not act yet.
-   - `Autonomous`: clear scope, enough evidence, safe execution path.
-   - `Needs owner`: product, money, privacy, legal, credential, external-send, or irreversible decision.
-   - `Data gap`: missing evidence before action.
-   - `Blocked`: exact external step required.
-   - `Done`: complete with proof.
+3. Scope the work.
+   - One worker equals one repo, domain, artifact, or task.
+   - Do not create workers for vague, weak, speculative, or duplicate work.
 
-4. Choose state.
-   - One-off task: no durable board unless useful.
-   - Multi-step goal: create or update a goal board.
-   - Recurring operation: update the recurring ledger.
-   - Use the board path named by the user or prompt; otherwise default to `~/orchestrator.md`.
+4. Set the boundary.
+   - Use plain language: inspect only, draft only, local edit, draft PR, publish approved, no external send, no production mutation.
 
-5. Deploy workers.
+5. Deploy or route.
    - Reuse an active worker if it already owns the same workstream.
-   - Create a visible thread only for bounded work.
-   - Name workers `<domain>: <short task>`, for example `abita_agent: reschedule guard` or `webinar: email sequence`.
-   - Give exact scope, relevant context, boundary, expected output, and stop condition.
+   - Create a visible worker thread only for bounded work.
+   - Name threads `<domain>: <short task>`, for example `abita_agent: insurance clarification guard`.
+   - If the saved Codex project is `/Users/chasefagen/Projects`, do not use Codex app `worktree` mode for that folder because it is not a Git repo. Point the worker at the real repo root, such as `/Users/chasefagen/abita_agent`, or create a manual worktree from that repo.
 
-6. Check workers.
-   - Workers do not magically report back to the root thread.
-   - The orchestrator checks worker threads, reads their latest result, and decides whether to steer, wait, ask, or close.
-   - Let coherent workers continue. Intervene only when blocked, unsafe, stale, done, or drifting.
+6. Monitor.
+   - Workers do not automatically report back.
+   - Read the worker output before claiming completion.
+   - Intervene only when blocked, unsafe, stale, done, or drifting.
 
-7. Synthesize.
-   - Combine worker outputs into one answer or next action.
-   - Resolve conflicts.
-   - Bring owner questions back as concise decision briefs.
+7. Close.
+   - Record status, proof, thread link, files/PR/artifact, blocker, decision needed, and next step.
+   - Update the relevant pipeline, loop state, goal state, or weekly plan only when the change is durable.
 
-8. Close.
-   - Report only meaningful changes: worker created/steered, artifact ready, PR/report/draft ready, blocker, decision needed, risk changed, or goal complete.
-   - Update state if durable state is in use.
-
-## Worker Rules
-
-- One worker = one bounded workstream.
-- Workers execute; they do not orchestrate.
-- Workers do not spawn subworkers, manage threads, or edit orchestrator state.
-- Prefer visible project/worktree threads for durable work.
-- Use hidden subagents only for short read-heavy research when clearly useful or explicitly requested.
-- Do not duplicate large worker context in the root thread.
+8. Promote learning.
+   - Decide whether verified proof contains durable knowledge that future workers should reuse.
+   - Treat no wiki change as valid for task-local, duplicated, transient, private, or weak evidence.
+   - When learning passes the promotion gate, deploy one bounded wiki subagent with `$acuity-wiki`.
+   - Pass the verified closeout, source proof, target wiki location, and write boundary.
+   - Read and verify the wiki result before claiming the system learned.
+   - The root owns this fan-out. Repository workers do not spawn the wiki subagent.
 
 ## Worker Prompt
 
 ```text
-Goal: <overall goal>
+Goal: <goal this work serves>
 Thread: <domain>: <short task>
 Task: <one exact workstream>
-Boundary: <what this worker may do and must not do>
-Context: <only the relevant evidence, links, paths, or constraints>
+Boundary: <allowed actions and hard stops>
+Context: <only relevant files, evidence, links, or constraints>
 
 Use relevant local instructions and skills first.
 Do not spawn subworkers or manage other threads.
 Stay in scope.
-Respect existing work and dirty state.
+Respect dirty worktrees.
 Run focused checks when changing files.
 Stop if the boundary, missing evidence, or unsafe action blocks progress.
 
@@ -90,9 +83,29 @@ Return:
 - recommended next step
 ```
 
-## Boundary
+## Wiki Subagent Prompt
 
-Use plain-language boundaries instead of vague freedom.
+```text
+Task: Promote verified worker proof into durable Acuity wiki knowledge.
+Skill: Use $acuity-wiki.
+Proof: <verified closeout and source links or paths>
+Wiki target: <repository or directory>
+Boundary: Documentation only. No product, production, external-send, or policy mutation.
+
+Prefer updating an existing owner over creating a new entry.
+No wiki change is valid when the learning is weak, transient, duplicated, or private.
+Do not spawn subworkers.
+
+Return:
+- status
+- wiki file changed
+- proof used
+- promotion-gate decision
+- what future workers should do differently
+- blocker or decision needed
+```
+
+## Boundaries
 
 Examples:
 
@@ -100,43 +113,37 @@ Examples:
 - `Draft only; do not send or publish.`
 - `Edit locally and report proof; do not push.`
 - `Open a draft PR if checks pass.`
-- `Do not spend money, merge, release, delete, send externally, or make irreversible changes without explicit approval.`
+- `Publish only this approved item.`
+- `Do not spend money, merge, release, delete, send externally, or mutate production without explicit approval.`
 
-## State
+## Closeout States
 
-State should be active-board style, not a diary.
+- `done`
+- `created work`
+- `needs decision`
+- `blocked`
+- `closed as noise`
+- `failed`
 
-Goal board shape:
+No vague progress closeouts.
 
-```md
-# <Goal>
+## Decision Brief
 
-## Outcome
-## Deadline
-## Workstreams
-## Workers
-## Decisions Needed
-## Blockers
-## Artifacts
-## Recently Completed
-```
-
-## Decision Briefs
-
-Do not ask from vague status. Bring:
+When Chase needs to decide, bring:
 
 - decision needed
 - evidence
 - options
 - recommendation
-- consequence of each choice
+- consequence of each option
+- next action after the decision
 
 ## Stop Conditions
 
 Stop and ask when:
 
-- the goal is ambiguous enough that decomposition would be wrong
+- done is too ambiguous to route
 - the worker boundary would be crossed
 - destructive or irreversible action is needed
-- money, legal, privacy, credential, or external-send approval is needed
+- money, legal, privacy, credential, external-send, deploy, merge, release, or production mutation approval is needed
 - evidence is weak and action would be speculative

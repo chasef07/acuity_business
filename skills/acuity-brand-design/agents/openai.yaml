@@ -1,0 +1,4 @@
+interface:
+  display_name: "Acuity Brand Design"
+  short_description: "Create distinctive Acuity-branded visual work"
+  default_prompt: "Use $acuity-brand-design to create a distinctive Acuity Health visual for this request."

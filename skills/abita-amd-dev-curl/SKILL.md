@@ -15,7 +15,7 @@ Keep tokens, cookies, provider responses, and any non-dev credentials out of com
 - Use fake patients only, with obvious names like `PHONETEST<timestamp>,CODEX`.
 - Never print passwords, tokens, cookies, raw credentials, or full provider responses.
 - Report sanitized facts: action, success/failure, fake patient id/name, submitted test phone, and lookup match.
-- Re-check `/Users/chasefagen/Projects/abita_middleware` before claiming current middleware behavior.
+- Re-check `/Users/chasefagen/abita_middleware` before claiming current middleware behavior.
 
 ## Dev Credentials
 

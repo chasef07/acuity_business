@@ -1,11 +1,11 @@
 ---
 name: linkedin-marketing-loop
-description: "Run Acuity Health LinkedIn company-page marketing from the local linkedin_ops ledger: autonomous Acuity company-page publishing, orchestrator triage, post drafts, metrics sync, comment triage, approval packets, and campaign reports."
+description: "Run Acuity Health LinkedIn marketing from the local linkedin_ops ledger. Use for Acuity company-page posts, stronger post drafting, approval packets, autonomous publishing, metrics checks, comment triage, and growth-loop reports."
 ---
 
 # LinkedIn Marketing Loop
 
-Run LinkedIn as a ledger-backed marketing loop. Acuity Health company-page publishing is now autonomous under the standing policy below; comments, replies, DMs, paid promotion, customer naming, and unusual claims still require explicit approval.
+Run Acuity LinkedIn as a ledger-backed growth loop. Make better posts, not more process.
 
 ## Sources
 
@@ -17,59 +17,18 @@ Run LinkedIn as a ledger-backed marketing loop. Acuity Health company-page publi
 
 Never print access tokens, client secrets, raw private comments, credentials, or private customer context.
 
+## Goal
+
+Help Acuity get more customers by publishing useful, specific, founder-level posts for ophthalmology practice owners, administrators, office managers, and operators.
+
 ## Modes
 
-### Triage
-
-Use for heartbeats and root orchestrator threads, including `Big Autistic Daddy 2.0`.
-
-- Check auth health.
-- Sync/report metrics when safe.
-- List draft, approved, and published counts.
-- Surface blockers and decision needs.
-- Do not reply, create comments, send DMs, run paid promotion, name customers, or make unusual claims.
-- Reuse existing workers for the same lane.
-
-### Approval Packet
-
-Use when Chase needs a concise decision packet.
-
-- Show draft IDs and full post copy.
-- Explain why each draft exists.
-- Show approved-but-unpublished posts.
-- Recommend approve, revise, publish, or hold.
-- Include suggested graphic concepts only; do not create/upload graphics unless asked.
-
-### Worker
-
-Use for content drafts, metrics analysis, engagement triage, or campaign reports.
-
-- Work one lane at a time.
-- Use the ledger as source of truth.
-- Keep writes local unless the boundary explicitly grants publishing.
-- Do not auto-reply to comments.
-
-### Autonomous Publish
-
-Use for the recurring Acuity Health company-page lane. Chase approved this standing rule on 2026-06-29: post to Acuity Health once every three days without per-post approval, using content based on Acuity's own website and campaign facts.
-
-- Run at most one post per automation run.
-- Use `/Users/chasefagen/Projects/linkedin_ops/scripts/linkedin_ops.py autopublish --campaign ophthalmology-ai-receptionist --yes`.
-- Keep content grounded in `https://acuityhealth.io`, the local campaign config, published metrics, and prior ledger facts.
-- Prefer concrete operational themes: EMR booking, after-hours capture, call summaries, transfers, two-way texting, analytics, missed-call capture, and front-desk relief.
-- Do not name a customer unless Chase explicitly approves that name.
-- Do not promise guaranteed results or make clinical claims.
-- Do not comment, reply, send DMs, upload paid media, or run paid promotion.
-- Record the resulting LinkedIn URN through the CLI and report only the post id, URN, and any blocker.
-
-### Manual Publish
-
-Use when Chase approves an exact post or when publishing a specific ledger row outside the autonomous lane.
-
-- Require local `APPROVED` status.
-- Require `publish --yes`.
-- Publish one exact post at a time.
-- Record the resulting LinkedIn URN through the CLI.
+- `triage`: check auth, drafts, approved posts, published posts, blockers, and metrics.
+- `draft`: create or improve posts in the ledger.
+- `approval packet`: show exact drafts and recommend approve, revise, publish, or hold.
+- `autonomous publish`: publish one safe company-page post when policy allows.
+- `metrics`: sync/report performance and useful learning.
+- `comment triage`: classify comments; do not reply unless explicitly allowed.
 
 ## Commands
 
@@ -85,7 +44,7 @@ python3 scripts/linkedin_ops.py autopublish --campaign ophthalmology-ai-receptio
 python3 scripts/linkedin_ops.py report --campaign ophthalmology-ai-receptionist
 ```
 
-Approval and publish:
+Approval and manual publish:
 
 ```bash
 python3 scripts/linkedin_ops.py show-post --post-id <id>
@@ -93,25 +52,63 @@ python3 scripts/linkedin_ops.py approve --post-id <id> --notes "<approval>"
 python3 scripts/linkedin_ops.py publish --post-id <id> --yes
 ```
 
-## Content Standard
+## Posting Freedom
 
-- Speak to ophthalmology owners, administrators, and office managers.
-- Make one point per post.
-- Prefer operational truth over generic AI commentary.
-- Best topics: missed-call capture, front-desk relief, after-hours booking, transfer visibility, scheduling workflow, office-manager reporting.
-- Use the six-location proof point when it sharpens the post.
-- Do not name the practice unless Chase explicitly approves it.
-- Do not promise identical results.
+Have freedom to write sharper posts when grounded in true Acuity facts.
+
+Good posts can be:
+
+- practical
+- opinionated
+- founder-written
+- contrarian
+- operational
+- customer-problem-first
+- short or medium length
+- story, lesson, teardown, checklist, or point-of-view
+
+Avoid generic AI commentary. Do not write like a product brochure.
+
+Prefer concrete angles:
+
+- phone tag and dropped demand
+- after-hours capture
+- front-desk relief
+- scheduling workflow
+- EMR booking
+- transfer visibility
+- call summaries
+- no-show or recall workflows
+- two-way texting
+- workflow automation inside medical practices
+- what Acuity is learning from real calls
+
+Approved proof may be used when it sharpens the post:
+
+- Acuity is live in a six-location ophthalmology practice.
+- The practice had been dropping about 200 calls a week.
+- Acuity helps capture and book roughly 200 appointments a week.
+- Optional commercial line: over `$100k` in weekly captured revenue.
+
+Use proof anonymously unless Chase explicitly approves naming the practice.
+
+## Guardrails
+
+- Do not invent facts, metrics, customer names, clinical claims, or guaranteed outcomes.
+- Do not name customers without explicit approval.
+- Do not reply, comment, send DMs, upload media, run paid promotion, or make unusual claims unless the task explicitly allows it.
+- Autonomous company-page publishing is allowed only through `autopublish --campaign ophthalmology-ai-receptionist --yes`.
+- Publish at most one post per automation run.
 
 ## Classify
 
 Post:
 
-- `Draft ready`: clear, on-message, approval-worthy.
-- `Needs revision`: useful idea, weak copy.
-- `Approved`: Chase approved exact copy.
-- `Published`: live and recorded.
-- `Hold`: not useful now.
+- `Draft ready`
+- `Needs revision`
+- `Approved`
+- `Published`
+- `Hold`
 
 Engagement:
 
@@ -122,38 +119,29 @@ Engagement:
 - `Data gap`
 - `API blocker`
 
-## Worker Prompt
+## Worker Handoff
 
 ```text
-Goal: Acuity LinkedIn marketing loop
+Goal: Get more customers
 Thread: linkedin_ops: <short lane>
 Repo: /Users/chasefagen/Projects/linkedin_ops
-Task: <autonomous publish|approval packet|content drafts|metrics report|engagement triage|publish approved post>
-Boundary: <triage|local-edit|autonomous-publish|approval-packet|publish-approved>; no tokens, raw private comments, credentials, or private customer context.
+Task: <triage|draft|approval packet|autonomous publish|metrics|comment triage|publish approved post>
+Boundary: <what is allowed and forbidden>
 
 Use $linkedin-marketing-loop.
 Ledger first.
-Do not reply, comment, send DMs, upload media, run paid promotion, or name customers unless the boundary explicitly allows it. Autonomous Acuity company-page publishing is allowed only through the `autopublish --yes` lane.
-
-Return:
-- status
-- posts reviewed
-- drafts/recommendations
-- metrics signal
-- comments needing follow-up
-- blockers
-- decisions needed
-- recommended next step
+Respect policy.
+Return status, output, proof, blocker, decision needed, and next step.
 ```
 
 ## Output
 
 Report only meaningful changes:
 
-- new drafts
-- approval decisions needed
-- approved-but-unpublished posts
+- drafts created or improved
+- posts needing approval
 - posts published
 - metrics signal changed
 - comments needing follow-up
 - auth/API blockers
+- next recommended growth action
