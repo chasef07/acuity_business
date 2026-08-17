@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backend Health"
+  short_description: "Check four golden signals in Google Cloud"
+  default_prompt: "Use $backend-health to assess this backend and diagnose any golden signal that is not green."
