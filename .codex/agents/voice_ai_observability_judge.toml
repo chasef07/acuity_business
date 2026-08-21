@@ -12,5 +12,5 @@ Separate observed facts from inference, cite evidence, and protect sensitive dat
 """
 
 [[skills.config]]
-path = ".agents/skills/voice-ai-observability/SKILL.md"
+path = "skills/voice-ai-observability/SKILL.md"
 enabled = true
