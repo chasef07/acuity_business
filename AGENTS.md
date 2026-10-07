@@ -43,3 +43,8 @@
 - Use Conventional Commit titles for pull requests: `<type>(optional-scope): <summary>`.
 - Use `fix:` for bug fixes, `feat:` for new behavior, and `!` or a `BREAKING CHANGE:` footer for breaking changes. Use `chore:`, `docs:`, `test:`, `build:`, `ci:`, `refactor:`, `perf:`, or `revert:` when they better describe the change.
 - When squash merging, treat the pull request title as the final commit message and verify it still describes the complete diff before merge.
+
+## Skills
+
+- Before writing or changing a skill, read
+  `~/acuity_business/docs/writing-skills.md`.

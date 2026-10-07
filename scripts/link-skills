@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Link this repo's AGENTS.md and skills into Codex and Claude Code, and remove
+# stale links that point at skills this repo no longer has.
+set -euo pipefail
+
+repo_root=$(cd "$(dirname "$0")/.." && pwd)
+
+link_rules() {
+  local target=$1
+  if [[ -e $target && ! -L $target ]]; then
+    echo "skip: $target exists and is not a link"
+    return
+  fi
+  mkdir -p "$(dirname "$target")"
+  ln -sfn "$repo_root/AGENTS.md" "$target"
+  echo "linked: $target"
+}
+
+link_rules "$HOME/.codex/AGENTS.md"
+link_rules "$HOME/.claude/CLAUDE.md"
+
+for skills_dir in "$HOME/.codex/skills" "$HOME/.claude/skills"; do
+  mkdir -p "$skills_dir"
+
+  for link in "$skills_dir"/*; do
+    [[ -L $link ]] || continue
+    target=$(readlink "$link")
+    if [[ $target == "$repo_root/skills/"* && ! -e $target ]]; then
+      rm "$link"
+      echo "removed stale: $link"
+    fi
+  done
+
+  for skill in "$repo_root"/skills/*/; do
+    [[ -f $skill/SKILL.md ]] || continue
+    name=$(basename "$skill")
+    ln -sfn "${skill%/}" "$skills_dir/$name"
+    echo "linked: $skills_dir/$name"
+  done
+done

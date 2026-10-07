@@ -3,6 +3,10 @@
 
 require "yaml"
 
+# Limits from docs/writing-skills.md.
+MAX_DESCRIPTION = 300
+MAX_LINES = 150
+
 repo_root = `git rev-parse --show-toplevel 2>/dev/null`.strip
 Dir.chdir(repo_root.empty? ? Dir.pwd : repo_root)
 
@@ -52,10 +56,24 @@ skill_files.each do |path|
     errors << [path, "missing non-empty string field: #{field}"]
   end
 
+  description = data["description"]
+  if description.is_a?(String) && description.strip.length > MAX_DESCRIPTION
+    errors << [path, "description is #{description.strip.length} characters; limit is #{MAX_DESCRIPTION}"]
+  end
+
+  line_count = text.lines.count
+  if line_count > MAX_LINES
+    errors << [path, "SKILL.md is #{line_count} lines; limit is #{MAX_LINES}. Move detail to references/ or scripts/"]
+  end
+
   name = data["name"]
   next unless name.is_a?(String) && !name.strip.empty?
 
   normalized_name = name.strip
+  folder = File.basename(File.dirname(path))
+  errors << [path, "name must be kebab-case"] unless normalized_name.match?(/\A[a-z0-9]+(-[a-z0-9]+)*\z/)
+  errors << [path, "name #{normalized_name.inspect} must match folder #{folder.inspect}"] unless normalized_name == folder
+
   if names.key?(normalized_name)
     errors << [
       path,

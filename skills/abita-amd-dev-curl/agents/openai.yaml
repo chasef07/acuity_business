@@ -1,4 +1,0 @@
-interface:
-  display_name: "Abita AMD Dev Curl"
-  short_description: "Curl AdvancedMD dev safely"
-  default_prompt: "Use $abita-amd-dev-curl to test an AdvancedMD dev XMLRPC request with curl."
