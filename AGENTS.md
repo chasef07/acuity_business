@@ -1,50 +1,11 @@
-## Product Design
-
-### Simplicity
+# Acuity Principles
 
 - Build the simplest system that fully solves the real problem.
-- Write clean, elegant code that is digestible in one pass.
-- Delete stale, dead, duplicated, or unnecessary code whenever it is in scope.
-- Prefer boring primitives, clear names, explicit control flow, and fewer moving parts.
-- Prefer one owner, one state, and one source of truth.
-- New abstractions, dependencies, configuration, and compatibility paths must
-  earn their complexity.
-
-### Craft
-
-- Care about the small things. Names, states, contracts, errors, copy, layout,
-  timing, and transitions shape the product.
-- Work with extreme precision and attention to detail across frontend, backend,
-  operations, and the full user journey.
-- Make responsibilities narrow, boundaries explicit, state transitions obvious,
-  and failure modes visible and recoverable.
-- Trace behavior end to end. A locally correct component is not enough when the
-  complete experience is wrong.
-- Prefer code and interfaces that explain themselves over work that merely looks
-  clever or impressive.
-
-### Failure Analysis and Continuous Improvement
-
-- Capture the failing state before changing it: what failed, how to reproduce
-  it, the observable evidence, and the boundary that owns it.
-- Explain why it failed. Fix the cause at the owning boundary, not only the
-  downstream symptom.
-- Record what changed, why it improves the system, and any remaining risk.
-- Compare the failing state with the new state using the same scenario and
-  observable before-and-after proof.
-- Turn each useful failure into a stronger invariant, test, diagnostic, or
-  simpler design so the system improves continuously.
-- Do not hide failures with reassuring language, silent fallbacks, or weaker
-  checks. Keep failure visible and recoverable.
-- Weak evidence means no-change is valid.
-
-## Pull requests
-
-- Use Conventional Commit titles for pull requests: `<type>(optional-scope): <summary>`.
-- Use `fix:` for bug fixes, `feat:` for new behavior, and `!` or a `BREAKING CHANGE:` footer for breaking changes. Use `chore:`, `docs:`, `test:`, `build:`, `ci:`, `refactor:`, `perf:`, or `revert:` when they better describe the change.
-- When squash merging, treat the pull request title as the final commit message and verify it still describes the complete diff before merge.
-
-## Skills
-
-- Before writing or changing a skill, read
-  `~/acuity_business/docs/writing-skills.md`.
+- Prefer fewer moving parts, clear names, explicit control flow, and one source
+  of truth.
+- Delete stale, dead, or duplicated code when it is in scope. New abstractions,
+  dependencies, and configuration must earn their complexity.
+- Claims need evidence. Missing evidence is `UNKNOWN`; weak evidence means no
+  change.
+- Fix the cause at the owning boundary, not the symptom.
+- Keep failures visible and recoverable. No silent fallbacks.
