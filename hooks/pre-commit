@@ -5,3 +5,10 @@ repo_root=$(git rev-parse --show-toplevel)
 cd "$repo_root"
 
 scripts/validate-skills
+
+# Run each skill's script tests.
+for scripts in skills/*/scripts; do
+  if compgen -G "$scripts/test_*.py" > /dev/null; then
+    python3 -m unittest discover -q -s "$scripts"
+  fi
+done

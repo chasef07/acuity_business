@@ -11,7 +11,9 @@ flowchart TD
     ORC -->|"ops task"| OPS["Do it directly<br/>Linear, Gmail, Slack"]
     ORC -->|"one repo"| BUILD
     ORC -->|"separate work"| WRK["Workers<br/>one per repo or ops area"]
+    ORC -->|"production calls"| CALLS["call-review<br/>verified findings, prompt diffs"]
     WRK --> BUILD
+    CALLS -->|"synthetic eval + prompt diff"| BUILD
 
     subgraph BUILD["build, in one repo"]
         SCOPE["1. Scope<br/>what changes, what does not"] --> CODE["2. Build<br/>test first"]
@@ -39,6 +41,7 @@ flowchart TD
 | `orchestrator` | Decide direct work or workers, verify proof, close with `reflect`. |
 | `build` | Scope, build test-first, verify, fresh-reviewer loop, PR. |
 | `reflect` | Turn repeating lessons into a check, skill edit, or note, as PRs. |
+| `call-review` | Review production calls against the live prompts, post to `#product`, hand fixes to `build`. |
 | `pr` | One PR format for every repo: problem, summary, evidence, principles, risk. |
 | `acuity-brand-design` | Acuity-branded visuals, decks, and documents. |
 
