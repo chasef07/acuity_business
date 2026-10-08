@@ -75,7 +75,7 @@ Lessons (reflect):
 
 ## Guardrails
 
-- Without asking: read, draft, edit locally, open draft PRs, update Linear.
+- Without asking: read, draft, edit locally, open PRs, update Linear.
 - Never put credentials, tokens, or patient data in briefs or reports.
 - Leave unknown changes in a worktree alone; they may belong to Chase or
   another agent.

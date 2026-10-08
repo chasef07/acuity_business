@@ -17,7 +17,7 @@ be ignored, a failing test cannot.
 
 1. **Gather signals.** From this task, list the user's corrections, the
    reviewer's findings, failed checks or tests, retries, `BLOCKED` or `FAILED`
-   workers, `UNPROVEN` frames, and anything the agent had to work around.
+   workers, and anything the agent had to work around.
    Done when: every signal is listed, or there are none.
 
 2. **Keep lessons that will repeat.** Drop one-offs, weak evidence, and
@@ -39,8 +39,8 @@ be ignored, a failing test cannot.
 4. **Deliver as PRs** written with the `pr` skill. Do not wait for approval;
    merging the PR is the approval.
    - Checks and notes: commit on the task's branch so they appear in its PR.
-     With no task branch, open a draft PR in the product repository.
-   - Skill edits: a new branch and draft PR in `acuity_business`, after
+     With no task branch, open a PR in the product repository.
+   - Skill edits: a new branch and PR in `acuity_business`, after
      `scripts/validate-skills` passes.
 
    Done when: every change is in a PR.

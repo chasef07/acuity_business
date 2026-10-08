@@ -24,7 +24,7 @@ Decision:  <what Chase must decide, or none>
 Next:      <recommended next step>
 ```
 
-Default limits: read, edit locally, open a draft PR. No merge, deploy, outside
+Default limits: read, edit locally, open a PR. No merge, deploy, outside
 send or post, production change, spending, or data deletion.
 
 On a retry after `FAILED`, add one line before `Return exactly:`:

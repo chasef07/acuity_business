@@ -14,11 +14,11 @@ flowchart TD
     WRK --> BUILD
 
     subgraph BUILD["build, in one repo"]
-        FRAME["1. Frame<br/>real? now? proposed? done when"] --> CODE["2. Build<br/>test first"]
+        SCOPE["1. Scope<br/>what changes, what does not"] --> CODE["2. Build<br/>test first"]
         CODE --> VERIFY["3. Verify<br/>checks and proof"]
         VERIFY --> REVIEW["4. Review<br/>fresh subagent: bugs, simplicity, spec"]
         REVIEW -->|"blocking findings, max 2 rounds"| CODE
-        REVIEW --> CLOSE["5. Close<br/>draft PR"]
+        REVIEW --> CLOSE["5. Close<br/>PR via pr skill"]
     end
 
     OPS --> REFLECT
@@ -37,9 +37,9 @@ flowchart TD
 | Skill | Job |
 |---|---|
 | `orchestrator` | Decide direct work or workers, verify proof, close with `reflect`. |
-| `build` | Frame, build test-first, verify, fresh-reviewer loop, draft PR. |
+| `build` | Scope, build test-first, verify, fresh-reviewer loop, PR. |
 | `reflect` | Turn repeating lessons into a check, skill edit, or note, as PRs. |
-| `pr` | One PR format for every repo: problem, change, evidence, risk. |
+| `pr` | One PR format for every repo: problem, summary, evidence, principles, risk. |
 | `acuity-brand-design` | Acuity-branded visuals, decks, and documents. |
 
 Nothing waits for approval mid-run. The PRs are the checkpoint: merging a PR
