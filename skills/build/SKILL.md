@@ -50,11 +50,15 @@ eyes on it before anyone else does.
    Done when: a round is clean, or two rounds have run.
 
 5. **Close.** Commit with a Conventional Commit message and open a draft PR
-   with the frame, proof, and review summary. Put `UNPROVEN` and open findings
-   at the top. Then use the `reflect` skill.
+   using the repository's PR template, filled from the frame, proof, and
+   review. Without a template, cover the problem, change, evidence, and
+   remaining risk. Mention `UNPROVEN` or open findings only when they exist.
+   Then use the `reflect` skill.
    Done when: the draft PR shows before-and-after proof.
 
 ## Output
+
+Report this to the user. It is not the PR body.
 
 ```text
 Frame:        real? / now / proposed / done when
