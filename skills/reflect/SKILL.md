@@ -36,8 +36,8 @@ be ignored, a failing test cannot.
 
    Done when: every lesson has one destination.
 
-4. **Deliver as PRs.** Do not wait for approval; merging the PR is the
-   approval.
+4. **Deliver as PRs** written with the `pr` skill. Do not wait for approval;
+   merging the PR is the approval.
    - Checks and notes: commit on the task's branch so they appear in its PR.
      With no task branch, open a draft PR in the product repository.
    - Skill edits: a new branch and draft PR in `acuity_business`, after

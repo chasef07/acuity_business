@@ -1,6 +1,6 @@
 ---
 name: build
-description: "Build a feature or fix in one repository: prove the problem is real, trace the current code, agree the plan, build test-first, then loop with a fresh reviewer for bugs, simplicity, and scope. Use when asked to build, implement, or fix something."
+description: "Build a feature or fix in one repository: prove the problem is real, trace the current code, build test-first, then loop with a fresh reviewer for bugs, simplicity, and scope. Use when asked to build, implement, or fix something."
 ---
 
 # Build
@@ -50,10 +50,8 @@ eyes on it before anyone else does.
    Done when: a round is clean, or two rounds have run.
 
 5. **Close.** Commit with a Conventional Commit message and open a draft PR
-   using the repository's PR template, filled from the frame, proof, and
-   review. Without a template, cover the problem, change, evidence, and
-   remaining risk. Mention `UNPROVEN` or open findings only when they exist.
-   Then use the `reflect` skill.
+   written with the `pr` skill from the frame, proof, and review. Then use the
+   `reflect` skill.
    Done when: the draft PR shows before-and-after proof.
 
 ## Output

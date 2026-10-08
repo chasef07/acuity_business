@@ -39,6 +39,7 @@ flowchart TD
 | `orchestrator` | Decide direct work or workers, verify proof, close with `reflect`. |
 | `build` | Frame, build test-first, verify, fresh-reviewer loop, draft PR. |
 | `reflect` | Turn repeating lessons into a check, skill edit, or note, as PRs. |
+| `pr` | One PR format for every repo: problem, change, evidence, risk. |
 | `acuity-brand-design` | Acuity-branded visuals, decks, and documents. |
 
 Nothing waits for approval mid-run. The PRs are the checkpoint: merging a PR
