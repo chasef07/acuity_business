@@ -69,6 +69,8 @@ Not changed: <what a reviewer might assume changed but did not>
   a change log.
 - Keep credentials, tokens, patient data, raw transcripts, and private URLs out
   of the PR, including screenshots.
+- No agent attribution in commits or PRs: no `Co-Authored-By` trailer for an
+  agent and no "Generated with" footer. Credit for human co-authors stays.
 
 Done when: the title describes the whole diff and every claim in the body
 points at evidence.
