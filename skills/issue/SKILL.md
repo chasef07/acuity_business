@@ -13,6 +13,7 @@ asking anything.
 - Filing code work in Linear from a request, report, call review, or finding.
 - Making an existing issue ready for an agent.
 - Splitting a large spec into tickets.
+- Starting a project: write it with `references/project-template.md`.
 
 ## Repositories
 
