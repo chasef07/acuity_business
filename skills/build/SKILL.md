@@ -23,8 +23,10 @@ before anyone else does.
    report) and trace the code path the change touches. Write two lines: what
    will change, and what will not.
    Given a Linear issue, read it with its comments: its Change, Acceptance
-   criteria, Verify, and Out of scope are the scope.
-   Done when: the scope is written.
+   criteria, Verify, and Out of scope are the scope. Decide whether the work
+   needs the `orchestrator` skill: several repositories, or several
+   independent issues worth running in parallel.
+   Done when: the scope is written and the choice is made.
 
 2. **Build.** Work on a branch, test first: write a test that fails for the
    reason in the scope, then the least code that makes it pass, one slice at a
