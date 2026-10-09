@@ -23,8 +23,7 @@ before anyone else does.
    report) and trace the code path the change touches. Write two lines: what
    will change, and what will not.
    Given a Linear issue, read it with its comments: its Change, Acceptance
-   criteria, Verify, and Out of scope are the scope. If it lacks what you need
-   to build it, report BLOCKED and name what is missing.
+   criteria, Verify, and Out of scope are the scope.
    Done when: the scope is written.
 
 2. **Build.** Work on a branch, test first: write a test that fails for the
