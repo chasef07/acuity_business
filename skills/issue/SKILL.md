@@ -1,6 +1,6 @@
 ---
 name: issue
-description: "Write or fix ACU Linear issues an agent can build with the build skill: one repo, testable criteria, named proof, and a ready-for-agent gate. Use when filing code work in Linear, making an issue agent-ready, or splitting large work into tickets."
+description: "Write or fix ACU Linear issues an agent can build with the build skill: one repo, testable criteria, named proof, and a readiness check before Todo. Use when filing code work in Linear, making an issue agent-ready, or splitting large work into tickets."
 ---
 
 # Issue
@@ -40,8 +40,8 @@ asking anything.
    split it into thin end-to-end slices, each one demoable or testable on its
    own, with blocking links between them and the original as parent. Work
    across repositories gets one issue per repository. A parent holds the
-   problem and decisions for people; it gets no Repository label and is never
-   marked ready.
+   problem and decisions for people; it gets no Repository label and never
+   moves to Todo.
    Done when: every issue fits one PR in one repository.
 
 4. **Write** each issue with `references/template.md`. The title says the
@@ -56,10 +56,10 @@ asking anything.
    - No decision is waiting on Chase or the practice.
    - No patient data.
 
-   If it passes, add `ready-for-agent` and set status Todo. If a person must
-   do it (judgment, access, manual testing), leave the label off and say why
-   in Notes. Otherwise leave it in Triage and add a "Missing before ready"
-   list to Notes.
+   If it passes, set status Todo: Todo means an agent can build it. If a
+   person must do it (judgment, access, manual testing), assign that person
+   and say why in Notes. Otherwise leave it in Triage and add a "Missing
+   before ready" list to Notes.
    Done when: every issue is ready, assigned to a person, or lists what is
    missing.
 
@@ -77,6 +77,6 @@ ACU-n  <title>  <repository>  ready | for a person: <why> | missing: <items>
 ## Guardrails
 
 - Read-only on code. This skill writes issues, not fixes.
-- Never mark an issue ready to get it moving. A wrong ready label costs a
-  failed build.
+- Never move an issue to Todo to get it moving. A wrong Todo costs a failed
+  build.
 - Keep patient data out of Linear, even when the source contains it.

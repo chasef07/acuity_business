@@ -42,8 +42,8 @@ faster, or correct, and file them in Linear so they get fixed.
    Done when: every finding is marked `verified` or `rejected` with one line why.
 
 4. **Remove duplicates against Linear.** Each finding's fingerprint is
-   `kaizen:<repo>/<path>#<symbol>/<lens>`. List ACU issues labelled `Kaizen`
-   in every state, including done and canceled. Drop a finding whose
+   `kaizen:<repo>/<path>#<symbol>/<lens>`. Search ACU issue text for
+   `kaizen:` in every state, including done and canceled. Drop a finding whose
    fingerprint, or the same symbol and problem, is already open, done, or
    canceled. A canceled issue means "we decided no"; never refile it.
    Done when: every verified finding is `new` or `duplicate of ACU-n`.
@@ -56,12 +56,11 @@ faster, or correct, and file them in Linear so they get fixed.
 
 6. **File.** Write each pick with the `issue` skill's template
    (`~/acuity_business/skills/issue/references/template.md`) and file it in
-   ACU, project `Maintenance`. Labels: `Kaizen`, the Repository label
+   ACU, project `Maintenance`. Labels: the Repository label
    (`acuity_product`, `abita_s2s`, or `abita_middleware` for amd_middleware),
    and `Bug` or `Improvement`. Priority is High for a confirmed bug and Medium
-   otherwise. No assignee. A verified finding passes that skill's gate, so add
-   `ready-for-agent` and set status Todo; if one does not, file it without the
-   label and list what is missing.
+   otherwise. No assignee. A verified finding passes that skill's gate, so set
+   status Todo; if one does not, leave it in Triage and list what is missing.
    Done when: every pick has an ACU identifier.
 
 7. **Post** the digest to Slack `#product` (`C0C0KP8707R`).
@@ -98,7 +97,7 @@ A week with nothing filed posts the scope and "Nothing worth filing."
 
 - Read-only on code. Never edit, commit, or push in any repo; fixes go
   through `build` from the Linear issue.
-- Never refile a canceled `Kaizen` issue.
+- Never refile a canceled kaizen issue.
 - At most five issues per run, across all three repos.
 - No patient data, phone numbers, or secrets in issues or Slack, even when they
   appear in test fixtures.
