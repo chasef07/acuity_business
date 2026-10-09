@@ -22,13 +22,14 @@ before anyone else does.
 1. **Scope.** Read the evidence (the request, a failing test, log, call, or
    report) and trace the code path the change touches. Write two lines: what
    will change, and what will not.
-   Given a Linear issue, fetch it with its comments. Build it only if its
-   status is Todo; otherwise report BLOCKED and name what the `issue` skill's
-   gate says is missing. Its Change, Acceptance criteria,
-   Verify, and Out of scope are the scope.
+   Given a Linear issue, fetch it with its comments and check it against the
+   `issue` skill's gate. If it fails, move it to Triage, list what is missing
+   in its Notes, and report BLOCKED. Its Change, Acceptance criteria, Verify,
+   and Out of scope are the scope.
    Done when: the scope is written.
 
-2. **Build.** Work on a branch, test first: write a test that fails for the
+2. **Build.** Work on a branch (the issue's Linear branch name, so Linear
+   links the PR and moves the issue), test first: write a test that fails for the
    reason in the scope, then the least code that makes it pass, one slice at a
    time. Use subagents only for independent changes in different files. Note
    problems outside the scope; do not fix them. Leave cleanup to review.
@@ -46,8 +47,7 @@ before anyone else does.
    Done when: a round is clean, or two rounds have run.
 
 5. **Close.** Commit with a Conventional Commit message, then use the `pr`
-   skill. For a Linear issue, link the PR on it and set it to In Review. Then
-   use the `reflect` skill.
+   skill. Then use the `reflect` skill.
    Done when: the PR is open.
 
 ## Output

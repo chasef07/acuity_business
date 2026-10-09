@@ -56,7 +56,7 @@ asking anything.
    - No decision is waiting on Chase or the practice.
    - No patient data.
 
-   If it passes, set status Todo: Todo means an agent can build it. If a
+   If it passes, set status Todo. If a
    person must do it (judgment, access, manual testing), assign that person
    and say why in Notes. If it is parked on purpose, set Backlog and say what
    would bring it back. Otherwise leave it in Triage and add a "Missing
@@ -78,6 +78,4 @@ ACU-n  <title>  <repository>  ready | for a person: <why> | missing: <items>
 ## Guardrails
 
 - Read-only on code. This skill writes issues, not fixes.
-- Never move an issue to Todo to get it moving. A wrong Todo costs a failed
-  build.
 - Keep patient data out of Linear, even when the source contains it.
