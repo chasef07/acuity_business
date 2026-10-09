@@ -42,6 +42,7 @@ flowchart TD
 | `build` | Scope, build test-first, verify, fresh-reviewer loop, PR. |
 | `reflect` | Turn repeating lessons into a check, skill edit, or note, as PRs. |
 | `call-review` | Review production calls against the live prompts, post to `#product`, hand fixes to `build`. |
+| `backend-health` | Check production backend health on the four golden signals, post to `#product`. |
 | `pr` | One PR format for every repo: problem, summary, evidence, principles, risk. |
 | `acuity-brand-design` | Acuity-branded visuals, decks, and documents. |
 
