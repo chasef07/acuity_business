@@ -43,6 +43,7 @@ flowchart TD
 | `reflect` | Turn repeating lessons into a check, skill edit, or note, as PRs. |
 | `call-review` | Review production calls against the live prompts, post to `#product`, hand fixes to `build`. |
 | `backend-health` | Check production backend health on the four golden signals, post to `#product`. |
+| `kaizen` | Weekly audit for bugs, duplication, deletable code, and performance; files at most five Linear issues. |
 | `pr` | One PR format for every repo: problem, summary, evidence, principles, risk. |
 | `acuity-brand-design` | Acuity-branded visuals, decks, and documents. |
 
