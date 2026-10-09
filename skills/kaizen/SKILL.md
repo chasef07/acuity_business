@@ -54,34 +54,32 @@ faster, or correct, and file them in Linear so they get fixed.
    small ones in the same place. Fewer than five, or zero, is a valid week.
    Done when: the picked list is final.
 
-6. **File.** Create one ACU issue per pick in project `Maintenance`, with
-   labels `Kaizen` and `Bug` or `Improvement`. Priority is High for a
-   confirmed bug and Medium otherwise. No assignee. Use the issue template.
+6. **File.** Write each pick with the `issue` skill's template
+   (`~/acuity_business/skills/issue/references/template.md`) and file it in
+   ACU, project `Maintenance`. Labels: `Kaizen`, the Repository label
+   (`acuity_product`, `abita_s2s`, or `abita_middleware` for amd_middleware),
+   and `Bug` or `Improvement`. Priority is High for a confirmed bug and Medium
+   otherwise. No assignee. A verified finding passes that skill's gate, so add
+   `ready-for-agent` and set status Todo; if one does not, file it without the
+   label and list what is missing.
    Done when: every pick has an ACU identifier.
 
 7. **Post** the digest to Slack `#product` (`C0C0KP8707R`).
    Done when: the message link is in the reply.
 
-## Issue template
+## Issue fields
 
-Title: the finding's imperative title.
+Fill the `issue` template from the finding:
 
-```markdown
-**Problem**
-<what is wrong and why it matters, two sentences at most>
-
-**Evidence**
-`<repo>/<path>:<line>`
-<quoted code and the trace>
-
-**Change**
-<what to do> (estimate: <lines_delta> lines)
-
-**Verify**
-<the failing test, the behavior pin, or the measurement>
-
-kaizen:<repo>/<path>#<symbol>/<lens> · week <n> · <repo>@<short sha>
-```
+- **Problem:** what is wrong and why it matters.
+- **Evidence:** Confirmed is the quoted code and trace, with
+  `<repo>/<path>:<line>` at the short commit; Unverified is "None".
+- **Change:** the change and its estimate (`<lines_delta>` lines).
+- **Acceptance criteria:** the behavior that must hold after the change.
+- **Verify:** the finding's `verify`.
+- **Out of scope:** anything nearby the fix must not touch.
+- **Notes:** end with
+  `kaizen:<repo>/<path>#<symbol>/<lens> · week <n> · <repo>@<short sha>`.
 
 ## Digest
 

@@ -21,7 +21,8 @@ close nothing without proof.
 
 1. **Define done.** For each item, write one sentence naming the outcome that
    closes it: a merged PR, a sent reply, a decision, an answer. Create or link a
-   Linear issue when the item will outlive this session.
+   Linear issue when the item will outlive this session; write code issues
+   with the `issue` skill.
    Done when: every item has a done sentence.
 
 2. **Choose a lane.**

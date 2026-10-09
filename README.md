@@ -44,6 +44,7 @@ flowchart TD
 | `call-review` | Review production calls against the live prompts, post to `#product`, hand fixes to `build`. |
 | `backend-health` | Check production backend health on the four golden signals, post to `#product`. |
 | `kaizen` | Weekly audit for bugs, duplication, deletable code, and performance; files at most five Linear issues. |
+| `issue` | Write ACU Linear issues an agent can build: one repo, testable criteria, named proof, `ready-for-agent` gate. |
 | `pr` | One PR format for every repo: problem, summary, evidence, principles, risk. |
 | `acuity-brand-design` | Acuity-branded visuals, decks, and documents. |
 

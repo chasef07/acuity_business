@@ -22,6 +22,10 @@ before anyone else does.
 1. **Scope.** Read the evidence (the request, a failing test, log, call, or
    report) and trace the code path the change touches. Write two lines: what
    will change, and what will not.
+   Given a Linear issue, fetch it with its comments. Build it only if it has
+   the `ready-for-agent` label; otherwise report BLOCKED and name what the
+   `issue` skill's gate says is missing. Its Change, Acceptance criteria,
+   Verify, and Out of scope are the scope.
    Done when: the scope is written.
 
 2. **Build.** Work on a branch, test first: write a test that fails for the
@@ -42,7 +46,8 @@ before anyone else does.
    Done when: a round is clean, or two rounds have run.
 
 5. **Close.** Commit with a Conventional Commit message, then use the `pr`
-   skill. Then use the `reflect` skill.
+   skill. For a Linear issue, link the PR on it and set it to In Review. Then
+   use the `reflect` skill.
    Done when: the PR is open.
 
 ## Output
