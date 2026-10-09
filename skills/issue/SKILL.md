@@ -21,7 +21,6 @@ asking anything.
 | `acuity_product` | `~/acuity_product` |
 | `abita_s2s` | `~/abita_s2s` |
 | `abita_middleware` | `~/amd_middleware` |
-| `abita_agent` | `~/abita_agent` |
 
 ## Steps
 
@@ -40,7 +39,9 @@ asking anything.
 3. **Size.** One issue is one PR in one repository. If the work is bigger,
    split it into thin end-to-end slices, each one demoable or testable on its
    own, with blocking links between them and the original as parent. Work
-   across repositories gets one issue per repository.
+   across repositories gets one issue per repository. A parent holds the
+   problem and decisions for people; it gets no Repository label and is never
+   marked ready.
    Done when: every issue fits one PR in one repository.
 
 4. **Write** each issue with `references/template.md`. The title says the
@@ -62,10 +63,9 @@ asking anything.
    Done when: every issue is ready, assigned to a person, or lists what is
    missing.
 
-6. **File.** Team ACU. Labels: one Repository, one Area when one fits, and one
-   of `Bug`, `Improvement`, or `Feature`. Add the project when the work
-   belongs to one; standalone fixes go in `Maintenance`. No assignee unless
-   asked.
+6. **File.** Team ACU. Project: the outcome it serves, or `Maintenance`.
+   Labels: one of `Bug`, `Improvement`, or `Feature`, and one Repository.
+   No assignee unless asked.
    Done when: every issue has an ACU identifier.
 
 ## Output
