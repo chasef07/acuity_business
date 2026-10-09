@@ -58,7 +58,8 @@ asking anything.
 
    If it passes, set status Todo: Todo means an agent can build it. If a
    person must do it (judgment, access, manual testing), assign that person
-   and say why in Notes. Otherwise leave it in Triage and add a "Missing
+   and say why in Notes. If it is parked on purpose, set Backlog and say what
+   would bring it back. Otherwise leave it in Triage and add a "Missing
    before ready" list to Notes.
    Done when: every issue is ready, assigned to a person, or lists what is
    missing.
