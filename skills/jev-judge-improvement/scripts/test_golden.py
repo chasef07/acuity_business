@@ -58,6 +58,14 @@ class GoldenTest(unittest.TestCase):
         broken = {A: {"right_help": v(0.2)}, B: {"right_help": "error:Timeout"}, C: {"right_help": v(0.1)}}
         self.assertEqual(golden.gate_reword(calls, baseline, broken, "right_help")["errors"], [B[:8]])
 
+    def test_calls_without_a_transcript_are_listed_not_counted_as_failures(self):
+        calls = self.golden()
+        baseline = {A: {"right_help": v(0.9)}, B: {"right_help": "error:no_transcript"}, C: {"right_help": v(0.2)}}
+        candidate = {A: {"right_help": v(0.2)}, B: {"right_help": "error:no_transcript"}, C: {"right_help": v(0.1)}}
+        result = golden.gate_reword(calls, baseline, candidate, "right_help")
+        self.assertTrue(result["pass"], result)
+        self.assertEqual((result["errors"], result["unjudged"]), ([], [B[:8]]))
+
     def test_new_question_needs_ten_caught_calls_and_no_alarm_on_clean_golden_calls(self):
         calls = self.golden()
         evidence = [f"{n:08x}-1111-0000-0000-000000000000" for n in range(10)]

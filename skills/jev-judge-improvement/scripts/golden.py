@@ -46,6 +46,7 @@ import pull_calls  # noqa: E402
 
 PACIFIC = ZoneInfo("America/Los_Angeles")
 NO_AT_OR_BELOW = 0.40
+UNJUDGEABLE = {"error:no_transcript", "error:no_instructions"}
 NEW_QUESTION_MIN_EVIDENCE = 10
 BOOKING_QUESTIONS = {"booking_requested", "time_offered"}
 NOT_APPLICABLE_MEANS_NO = {"time_offered"}
@@ -134,6 +135,10 @@ def short(interaction_id):
     return interaction_id[:8]
 
 
+def unjudgeable(value):
+    return isinstance(value, str) and value in UNJUDGEABLE
+
+
 def is_error(value):
     return isinstance(value, str) and value.startswith("error")
 
@@ -208,12 +213,15 @@ def misses_today(golden, answers):
 
 def gate_reword(golden, baseline, candidate, question):
     """A rewording ships only if it fixes a miss and no golden call that agreed before now disagrees."""
-    sets, fixed, regressions, errors = {}, [], [], []
+    sets, fixed, regressions, errors, unjudged = {}, [], [], [], []
     for interaction_id, call in sorted(golden.items()):
         truth = call["truth"].get(question)
         if truth is None:
             continue
         raw = baseline.get(interaction_id, {}).get(question), candidate.get(interaction_id, {}).get(question)
+        if any(unjudgeable(value) for value in raw):
+            unjudged.append(short(interaction_id))
+            continue
         before, after = (answered_no(value, question) for value in raw)
         if before is None or after is None:
             if any(is_error(value) for value in raw):
@@ -237,6 +245,7 @@ def gate_reword(golden, baseline, candidate, question):
         "fixed_earlier": [f["call"] for f in fixed if not f["today"]],
         "regressions": regressions,
         "errors": errors,
+        "unjudged": unjudged,
         "pass": bool(fixed_today) and not regressions and not errors,
     }
 
@@ -252,6 +261,10 @@ def gate_new(golden, evidence, candidate, question):
     A call the question's gate skips is a miss on evidence and no alarm on golden calls.
     """
     raw = {i: candidate.get(i, {}).get(question) for i in set(evidence) | set(golden)}
+    unjudged = sorted(short(i) for i, value in raw.items() if unjudgeable(value))
+    raw = {i: value for i, value in raw.items() if not unjudgeable(value)}
+    evidence = [i for i in evidence if i in raw]
+    golden = {i: call for i, call in golden.items() if i in raw}
     errors = sorted(short(i) for i, value in raw.items() if value is None or is_error(value))
     answers = {i: answered_no(value, question) is True for i, value in raw.items()}
     caught = sorted(short(i) for i in evidence if answers[i])
@@ -266,6 +279,7 @@ def gate_new(golden, evidence, candidate, question):
         "clean_golden_calls": len(clean_calls),
         "false_alarms": alarms,
         "errors": errors,
+        "unjudged": unjudged,
         "pass": len(evidence) >= NEW_QUESTION_MIN_EVIDENCE and not missed and not alarms and not errors,
     }
 
@@ -433,7 +447,7 @@ def main():
     r.add_argument("--s2s", type=Path, required=True)
     r.add_argument("--name", required=True)
     r.add_argument("--questions", default="")
-    r.add_argument("--repeat", type=int, default=3, help="asks per call; the median is kept")
+    r.add_argument("--repeat", type=int, default=3, help="runs per call; the majority verdict is kept")
     r.add_argument("--today-only", action="store_true", help="only today's golden calls, to find today's misses")
     c = sub.add_parser("compare")
     c.add_argument("--out", type=Path, required=True)

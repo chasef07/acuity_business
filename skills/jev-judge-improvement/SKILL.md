@@ -23,8 +23,10 @@ day, and turn repeated gaps into new questions once they have earned it.
 
 ## Setup
 
+- The machine needs `gh` and `gcloud` signed in, `cloud-sql-proxy` and `psql`
+  installed, and a Slack connection.
 - `S2S`: the abita_s2s checkout (default `~/Projects/abita_s2s`); `PY` is its
-  `.venv/bin/python`. `SCRIPTS`: this skill's `scripts/`.
+  `.venv/bin/python` (made with `uv sync`). `SCRIPTS`: this skill's `scripts/`.
 - `OUT`: `<scratchpad>/jev-<today>`. Call data stays there; never in a repo.
 - Make a fresh worktree of `S2S` at `origin/main` for the baseline and one
   branch worktree per change. Leave the user's checkout alone.
@@ -70,8 +72,8 @@ day, and turn repeated gaps into new questions once they have earned it.
    Done when: every missed question has a draft PR, a "human looks wrong"
    note, or its best failed gate in the report.
 
-4. **Count themes.** Read `$OUT/notes.json` (reviewers' missing-question
-   notes). Run `python3 $SCRIPTS/candidates.py show`, then for each note
+4. **Count themes.** Read today's notes in `$OUT/notes.json`: those on
+   calls in today's set. Earlier notes were counted on earlier nights. Run `python3 $SCRIPTS/candidates.py show`, then for each note
    either add its call to an existing theme or start a new one:
    `candidates.py add <theme> --call <interaction id> --source note --date <today> [--question "<draft>"]`.
    One theme is one failure no current question covers. A theme is `ready` at
@@ -115,7 +117,7 @@ day, and turn repeated gaps into new questions once they have earned it.
 *New-question themes:* <theme> <calls>/10 · <theme> 10/10 ready, reply `add <theme>`
 *Added:* <theme>: draft PR <link> (caught <n>/<n>, 0 false alarms)
 *Trust:* which questions are trusted is on the portal's Judge accuracy tab
-*UNKNOWN:* <what could not be checked>
+*UNKNOWN:* <what could not be checked, including any `unjudged` calls with no transcript>
 ```
 
 ## Guardrails
