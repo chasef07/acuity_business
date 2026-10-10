@@ -45,6 +45,8 @@ flowchart TD
 | `backend-health` | Check production backend health on the four golden signals, post to `#product`. |
 | `kaizen` | Weekly audit for bugs, duplication, deletable code, and performance; files at most five Linear issues. |
 | `issue` | Write ACU Linear issues an agent can build: one repo, testable criteria, named proof, readiness check before Todo. |
+| `gtm-weekly` | Read the CRM and Linear, interview Kyle, build the GTM weekly deck, post to `#gtm`. |
+| `crm` | Log Gmail and Kyle's reported outreach into the Sales CRM, propose stage changes, report what's overdue. |
 | `pr` | One PR format for every repo: problem, summary, evidence, principles, risk. |
 | `acuity-brand-design` | Acuity-branded visuals, decks, and documents. |
 
