@@ -14,6 +14,8 @@ flowchart TD
     ORC -->|"production calls"| CALLS["call-review<br/>verified findings, prompt diffs"]
     WRK --> BUILD
     CALLS -->|"synthetic eval + prompt diff"| BUILD
+    NIGHT["Midnight Pacific"] --> JEV["jev-judge-improvement<br/>jury vs golden set, gated rewording"]
+    JEV -->|"gated rewording or approved question"| BUILD
 
     subgraph BUILD["build, in one repo"]
         SCOPE["1. Scope<br/>what changes, what does not"] --> CODE["2. Build<br/>test first"]
@@ -45,6 +47,7 @@ flowchart TD
 | `backend-health` | Check production backend health on the four golden signals, post to `#product`. |
 | `kaizen` | Weekly audit for bugs, duplication, deletable code, and performance; files at most five Linear issues. |
 | `issue` | Write ACU Linear issues an agent can build: one repo, testable criteria, named proof, readiness check before Todo. |
+| `jev-judge-improvement` | Nightly: gate judge rewordings on every golden set, count missing-question themes to 10, open draft PRs, report to `#product`. |
 | `pr` | One PR format for every repo: problem, summary, evidence, principles, risk. |
 | `acuity-brand-design` | Acuity-branded visuals, decks, and documents. |
 
