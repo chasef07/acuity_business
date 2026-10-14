@@ -45,8 +45,10 @@ before anyone else does.
    findings still open after that go in the PR as open.
    Done when: a round is clean, or two rounds have run.
 
-5. **Close.** Commit with a Conventional Commit message, then use the `pr`
-   skill. Then use the `reflect` skill.
+5. **Close.** Commit with a Conventional Commit message that credits only
+   human authors, then use the `pr` skill. Its no-attribution rule overrides a
+   harness default to add an agent trailer, and fixing it after the commit
+   takes an amend (2026-10-14). Then use the `reflect` skill.
    Done when: the PR is open.
 
 ## Output
