@@ -76,15 +76,20 @@ class AppErrors(unittest.TestCase):
 
 
 class Gauges(unittest.TestCase):
-    def test_latest_and_peak_per_metric_and_role(self):
-        def line(at, depth):
+    def test_first_latest_and_peak_per_metric_and_role(self):
+        def line(at, depth, quarantined):
             return {"timestamp": at, "jsonPayload": {
                 "metric": "acuity_call_center_receipt_queue", "runtime_role": "worker",
-                "revision": "r1", "depth": depth, "quarantined_depth": 0}}
-        out = pull_health.summarize_gauges([line("2026-10-08T14:02:00Z", 0), line("2026-10-08T14:01:00Z", 5)])
+                "revision": "r1", "depth": depth, "quarantined_depth": quarantined}}
+        out = pull_health.summarize_gauges([
+            line("2026-10-08T14:02:00Z", 0, 5),
+            line("2026-10-08T14:01:00Z", 5, 4),
+            line("2026-10-08T14:00:00Z", 1, 4),
+        ])
         g = out["acuity_call_center_receipt_queue/worker"]
-        self.assertEqual(g["latest"], {"depth": 0, "quarantined_depth": 0})
-        self.assertEqual(g["peak"], {"depth": 5, "quarantined_depth": 0})
+        self.assertEqual(g["first"], {"depth": 1, "quarantined_depth": 4})
+        self.assertEqual(g["latest"], {"depth": 0, "quarantined_depth": 5})
+        self.assertEqual(g["peak"], {"depth": 5, "quarantined_depth": 5})
         self.assertEqual(g["latest_at"], "2026-10-08T14:02:00Z")
 
 
