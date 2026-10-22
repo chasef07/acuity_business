@@ -21,7 +21,11 @@ before anyone else does.
 
 1. **Scope.** Read the evidence (the request, a failing test, log, call, or
    report) and trace the code path the change touches. Write two lines: what
-   will change, and what will not.
+   will change, and what will not. When the change depends on another
+   repository's contract, read that repository with `git fetch` and
+   `git show origin/main:<path>`, not its local checkout: a checkout 22 commits
+   behind once reported a contract break that `main` had already fixed
+   (2026-10-21).
    Given a Linear issue, read it with its comments: its Change, Acceptance
    criteria, Verify, and Out of scope are the scope. Decide whether the work
    needs the `orchestrator` skill: several repositories, or several
