@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-08",
+  "cover": {
+    "headline": "We have a real offer.\nNow we go test it.",
+    "subhead": "Deals, this week and next, how we find customers, and the decisions we need today."
+  },
+  "standing": {
+    "title": "The offer is written down. Buyers haven't tested it yet",
+    "offer": "Acuity builds custom medical voice agents and gives your team the tools and ongoing expertise to manage them, improve them, and measure their impact.",
+    "source": "01 — Offer & Positioning",
+    "pillars": [
+      ["Custom-built for your practice", "Agents designed around the practice's real workflows and EMR."],
+      ["The Acuity Loop", "Pick an outcome, baseline it, learn from calls, test fixes, measure."],
+      ["Own your intelligence", "Operators control knowledge, rules and quality checks."]
+    ],
+    "gap": "the ICP sprint (SAL-48) hasn't run yet, the pipeline is mostly smaller practices from before the shift, and practice control is still product direction. That's why the demo account matters (SAL-62)."
+  },
+  "deals": {
+    "title": "It's time to start picking up the phone",
+    "rows": [
+      {"account": "SAMGI", "stands": "Proposal. COO Scott has been answering emails.", "next": "Email the Acuity Loop (his idea: managing their own agents). Call if no reply.", "owner": "Kyle", "by": "Fri Oct 9"},
+      {"account": "San Antonio Eye Center", "stands": "First contact call with the CEO. At AAO this week.", "next": "Reconnect. Our first test of the enterprise thesis and three pillars.", "owner": "Kyle", "by": "Week of Oct 12"},
+      {"account": "Frantz Eye Care", "stands": "Tammy raised scheduling-rule concerns (SAL-56).", "next": "Meeting prep on her three examples; time still unconfirmed.", "owner": "Kyle", "by": "Mon Oct 12"},
+      {"account": "Abita", "stands": "Current customer. Renewal coming.", "next": "Renewal brief and Jason agenda (SAL-51).", "owner": "Kyle", "by": "Fri Oct 16"}
+    ],
+    "note": "A sent proposal or a friendly call is activity. A deal advances when the buyer commits to the next step."
+  },
+  "sprints": {
+    "current": {
+      "dates": "Oct 5–9  ·  AAO week",
+      "rows": [
+        ["SAL-56", "Frantz meeting prep (Tammy)", "In Review · 10/12"],
+        ["SAL-49", "Sales motion, meeting assets", "In Progress"],
+        ["SAL-46", "Abita case study (Chase)", "In Progress"],
+        ["SAL-60", "Ryan AAO accounts + materials", "Done"],
+        ["SAL-48", "ICP sprint kickoff", "Starts Fri 10/9"]
+      ]
+    },
+    "upcoming": {
+      "dates": "Oct 12–16",
+      "rows": [
+        ["SAL-48", "Warm-intro conversations", "In Progress"],
+        ["SAL-51", "Abita renewal brief + Jason", "Due 10/16"],
+        ["SAL-62", "Demo account: agent in action", "Backlog"],
+        ["SAL-63", "Backtrack inbound lead sources", "Todo"],
+        ["SAL-53", "Narrative + name for the approach", "Todo"],
+        ["SAL-58", "Q4 webinar on the Acuity Loop", "Due 10/27"],
+        ["SAL-59", "Ryan game-plan call after AAO", "Todo"]
+      ]
+    },
+    "notes": "CRM cleanup has no ticket yet. SAL-61 (record a talk on the Acuity Loop) has no owner; consider folding it into the webinar."
+  },
+  "inbound": {
+    "title": "Not our ICP, but worth pushing forward",
+    "rows": [
+      {"account": "Nelson Dermatology", "stands": "Demo booked.", "next": "Demo the agent booking appointments in AdvancedMD.", "by": "Wed Oct 14"},
+      {"account": "Isla", "stands": "Regrouping on a demo.", "next": "Same demo as Nelson: the agent and booking in AdvancedMD.", "by": "Week of Oct 12"},
+      {"account": "New Tampa Eye Institute", "stands": "Waiting on an answer.", "next": "Call Lynne to get a decision.", "by": "Fri Oct 9"}
+    ],
+    "callout": {"label": "One demo, two accounts", "text": "Build the AdvancedMD booking demo once."}
+  },
+  "channels": {
+    "title": "Be scrappy again: four channels, each with a ticket",
+    "cols": [
+      {"name": "Warm intros", "ticket": "SAL-48  ·  In Progress", "tag": "Primary channel", "body": "Venincasa, Chuck, Eric, Taheer, family networks, Chase's dad's hospital, EMR partners. Ask for 20 minutes on their operations.", "measure": "Intros asked → meetings"},
+      {"name": "LinkedIn", "ticket": "SAL-48 outreach  ·  SAL-53 posts", "tag": "A measured test", "body": "Named ICP executives each week. Ask a question about their operation; don't pitch. Kyle posts on LinkedIn, Chase on X.", "measure": "Sent → replied → met"},
+      {"name": "1099 rep: Ryan", "ticket": "SAL-60 Done  ·  SAL-59 Todo", "tag": "October test", "body": "Strong target list received; AAO materials sent. Next: research game-plan call after AAO.", "measure": "Qualified meetings vs. Kyle's hours"},
+      {"name": "Webinar", "ticket": "SAL-58  ·  Plan due Oct 27", "tag": "Acuity Loop topic", "body": "Planned with mom and Venincasa. It amplifies a message that's held up in about 10 conversations.", "measure": "Registered → follow-up calls"}
+    ],
+    "note": "Every conversation also feeds the product: what buyers ask for shapes the demo account and the roadmap."
+  },
+  "tracking": {
+    "title": "Two warm intros a week, and we measure what works",
+    "target": "2",
+    "targetLabel": "warm intros a week",
+    "targetBody": "The target for SAL-48. Log each one in the CRM with its source and date.",
+    "questions": "Every conversation answers: does the pain matter, does the vision fit, who owns it, will they act?",
+    "table": {
+      "label": "Backtrack recent inbound: source and speed",
+      "columns": ["Source", "Leads", "Meetings", "Demos", "Days to next step"],
+      "rows": [
+        ["Inbound (website, email)", "—", "—", "—", "—"],
+        ["Warm intro", "—", "—", "—", "—"],
+        ["LinkedIn", "—", "—", "—", "—"],
+        ["1099 rep", "—", "—", "—", "—"],
+        ["EMR partner", "—", "—", "—", "—"]
+      ]
+    },
+    "note": "Filled from email and the CRM: source, first contact, each next-step date, and where deals stall.",
+    "ticket": "SAL-63  ·  Backtrack recent inbound leads to see which sources work and how fast deals move  ·  Todo"
+  },
+  "demo": {
+    "kicker": "SAL-62  ·  DEMO ACCOUNT",
+    "title": "Show the agent in action, not the phone line",
+    "subtitle": "If we have their time, book an hour and take the time to explain everything.",
+    "pillars": [
+      ["Custom-built", "The agent follows one practice's scheduling rules, triage, exceptions and handoffs."],
+      ["The Acuity Loop", "Pick an outcome, see a baseline, find a failing call, test a fix, see the result."],
+      ["Own your intelligence", "A staff member changes a rule, reviews it, publishes it, and can roll it back."]
+    ],
+    "rules": ["Seeded demo practice. No real patient data.", "Focus on the agent and the operator, not the VOIP setup.", "Every screen labeled shipped, mocked or planned."],
+    "room": ["Have a plan for triage and managing the agent", "Let them guide where we go deep", "Leave with a dated next step"],
+    "ticket": "SAL-62  ·  Build a demo account that shows the Acuity Loop and practice control  ·  Backlog  ·  Kyle"
+  },
+  "decisions": [
+    ["Warm intros", "Who asks each source; two intros a week (SAL-48)"],
+    ["Booking demo", "AdvancedMD walkthrough for Nelson on Oct 14, then Isla"],
+    ["Hour-long demo", "Owner and run-of-show for the agent in action (SAL-62)"],
+    ["Tracking", "Backtrack inbound and add source + dated steps (SAL-63)"],
+    ["Webinar", "Confirm the Acuity Loop as the topic, plus date and roles (SAL-58)"],
+    ["CRM cleanup", "Move older small practices to a legacy tab; add the active deals"]
+  ]
+}
