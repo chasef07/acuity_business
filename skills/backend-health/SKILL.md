@@ -55,11 +55,21 @@ mention their errors only as context.
    includes the worker, the same way.
    Done when: every error group has a cause, or is marked `UNKNOWN`.
 
-6. **Saturation** (`saturation`). Findings: any `quarantined_depth` above zero,
-   a queue `oldest_*` age that is high at `latest`, a `latest`
-   `saturation_ratio` of 1, any `no_available_instance`, or `peak_instances`
-   near the runtime's `max_instances`. A `peak` that has gone back to zero at
-   `latest` is transient.
+6. **Saturation** (`saturation`). Findings: a `quarantined_depth` that is
+   higher at `latest` than at `first`, a queue `oldest_*` age that is high at
+   `latest`, a `latest` `saturation_ratio` of 1, any `no_available_instance`, or
+   `peak_instances` near the runtime's `max_instances`. A `peak` that has gone
+   back to zero at `latest` is transient.
+   Quarantined receipts stay until an operator requeues them, so a depth that
+   did not grow in the window is a standing item, not a finding. List it under
+   **Standing** with its count. To see what they are, read their event type,
+   error code, age, and whether their Call ended, read-only, as the worker
+   role (`acuity-product-east1-worker-database-url`; the portal role cannot
+   read receipts) through `cloud-sql-proxy` with
+   `PGOPTIONS='-c default_transaction_read_only=on'`. Never read `raw_body`.
+   Requeue only a receipt whose Call still needs the fact; a late fact for a
+   Call that already ended will conflict again.
+   `unavailable_depth` on the recording queue is a running total, not a queue.
 
 7. **Verdict.** Mark the backend healthy only if all four signals pass. A burst
    that has stopped is reported as transient, with its time range. A burst
@@ -84,6 +94,9 @@ mention their errors only as context.
 **Errors** (UTC; leave this section out when there are none)
 - <service> <route> <status> ×<n>, <first>–<last>: <cause or UNKNOWN>; recurring/transient
 
+**Standing** (leave out when there are none)
+- <n> quarantined receipts, unchanged in the window: <event types and error codes, or UNKNOWN>
+
 **Suggested changes**
 - <change>: <why, from the evidence above>
 (or "None.")
@@ -96,3 +109,6 @@ mention their errors only as context.
 - Log fields are fixed metric labels. Never copy call IDs, phone numbers, or
   request bodies into the report.
 - Say when a signal has no data. Don't call silence healthy.
+- A suggested change that says what the code does ("retries forever", "never
+  times out") cites the line in `acuity_product` that shows it. Without that
+  line, the behaviour is `UNKNOWN`.
