@@ -69,6 +69,16 @@ class PromptTag(unittest.TestCase):
 
 
 class Render(unittest.TestCase):
+    def test_postgres_timestamps_with_short_fractions(self):
+        text = pull_calls.render_call(
+            1,
+            call(
+                started_at="2026-10-15T11:45:25.00212+00:00",
+                ended_at="2026-10-15T11:46:25.5+00:00",
+            ),
+        )
+        self.assertIn("2026-10-15 07:45:25 EDT, duration 60s", text)
+
     def test_transcript_keeps_full_tool_results_and_offsets(self):
         long_output = "slot " * 500
         text = pull_calls.render_call(

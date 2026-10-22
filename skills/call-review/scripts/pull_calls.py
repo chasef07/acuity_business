@@ -119,13 +119,19 @@ def chat_items(transcript):
     return transcript.get("items") or []
 
 
+def parse_time(value):
+    """Parse an ISO timestamp, padding Postgres's short fractions for Python 3.9."""
+    value = re.sub(r"\.(\d{1,6})", lambda m: "." + m.group(1).ljust(6, "0"), value.replace("Z", "+00:00"))
+    return datetime.fromisoformat(value)
+
+
 def item_time(item):
     value = item.get("created_at", item.get("createdAt", item.get("occurredAt")))
     if isinstance(value, (int, float)):
         return value / 1000 if value > 1e12 else float(value)
     if isinstance(value, str):
         try:
-            return datetime.fromisoformat(value.replace("Z", "+00:00")).timestamp()
+            return parse_time(value).timestamp()
         except ValueError:
             return None
     return None
@@ -176,10 +182,10 @@ def transcript_lines(c):
 def render_call(number, c):
     closeout = c.get("closeout") or {}
     evaluation = closeout.get("evaluation") or {}
-    started = datetime.fromisoformat(c["started_at"]).astimezone(ZONE)
+    started = parse_time(c["started_at"]).astimezone(ZONE)
     duration = "UNKNOWN"
     if c.get("ended_at"):
-        duration = f"{int((datetime.fromisoformat(c['ended_at']) - datetime.fromisoformat(c['started_at'])).total_seconds())}s"
+        duration = f"{int((parse_time(c['ended_at']) - parse_time(c['started_at'])).total_seconds())}s"
     out = [
         f"# Call {number:03d}",
         "",
