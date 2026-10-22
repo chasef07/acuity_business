@@ -47,16 +47,18 @@ Use call numbers only. Never write patient names, phone numbers, dates of
 birth, or other identifiers in your findings, even in quotes; replace them
 with [name], [phone], [dob].
 
+For each finding, name in should_flag the one judge question whose "no"
+should have caught it, or null when none fits. The questions, what each asks,
+and the fix its "no" points to are in <out>/judge_questions.json; use its keys
+exactly.
+
 Write a JSON array:
 [{"call": 12, "category": "hallucination|failure|improvement",
   "severity": "high|medium|low", "root_cause": "<component>",
   "summary": "<one sentence>",
   "evidence": [{"at": "01:42", "quote": "<exact words>"}],
-  "judges_missed": true|false,
+  "should_flag": "<question key or null>",
   "fix": "<file: old sentence -> new sentence, or empty>"}]
-
-judges_missed is true when the call's built-in judges scored it well despite
-this finding.
 
 Reply with only the path you wrote and the number of findings.
 ```

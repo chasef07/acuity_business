@@ -22,8 +22,12 @@ the worst of it into prompt and code fixes.
 1. **Pull.** Run, with a New York calendar day:
 
    ```bash
-   ~/acuity_business/skills/call-review/scripts/pull_calls.py --date YYYY-MM-DD [--days N] --out <scratchpad>/calls-YYYY-MM-DD
+   ~/acuity_business/skills/call-review/scripts/pull_calls.py --date YYYY-MM-DD [--days N] --out <scratchpad>/calls-YYYY-MM-DD --s2s <abita_s2s checkout>
    ```
+
+   `--s2s` must hold the judge set that was live; `judge_questions.json` lists
+   its failure questions for `should_flag`, and only verdicts from its
+   evaluator version count in step 4.
 
    It opens a read-only session through the Cloud SQL proxy, renders one file
    per call with full tool results, and exports the prompts that were live for
@@ -46,9 +50,15 @@ the worst of it into prompt and code fixes.
 4. **Verify.** Open the transcript for every high-severity finding and confirm
    the quote, its timestamp, and the claimed missing evidence yourself.
    Reviewers misread tool results; drop or downgrade what does not hold, and
-   reject fixes that remove a safety net. Merge the verified findings into
-   `all_findings.json`.
-   Done when: every high-severity finding is marked `verified` or `rejected`.
+   reject fixes that remove a safety net. Check each `should_flag` names the
+   question whose "no" would have caught it. Merge the verified findings into
+   `all_findings.json`, then run `scripts/judge_misses.py <out>`: it adds the
+   jury's stored verdict to each finding and writes `judge_misses.json`. A
+   finding whose question said yes is a judge miss; findings with
+   `should_flag` null are `unassigned` and feed the new-question themes in
+   `jev-judge-improvement`.
+   Done when: every high-severity finding is marked `verified` or `rejected`,
+   and `judge_misses.py` exits 0.
 
 5. **Report** using the output template. Group findings into patterns by
    cause, not by call.
@@ -71,7 +81,7 @@ the worst of it into prompt and code fixes.
 # Call review: <window>, <n> calls, prompts <tags>
 
 ## Hallucinations
-| Call | At | Said | Truth | Cause | Judges missed |
+| Call | At | Said | Truth | Cause | Should flag |
 
 ## Patterns
 1. <pattern>: <n> calls (<call numbers>). Cause: <component>.
@@ -81,7 +91,8 @@ the worst of it into prompt and code fixes.
 - <tool or platform change>: <calls>
 
 ## Judges missed
-<findings the built-in judges scored well, by judge>
+| Question | Findings | Missed (said yes) | Caught | Not judged |
+No question fits: <n> findings (to the theme ledger)
 
 ## Stats
 <odd numbers from step 2, one line each>
