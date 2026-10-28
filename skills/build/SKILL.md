@@ -32,7 +32,10 @@ before anyone else does.
    independent issues worth running in parallel.
    Done when: the scope is written and the choice is made.
 
-2. **Build.** Work on a branch, test first: write a test that fails for the
+2. **Build.** Cut the branch from a freshly fetched `origin/main`, not the
+   current checkout: a branch cut from a local commit that had already landed
+   as a different squash merge put a stray juror change in the diff
+   (2026-10-28). Then work test first: write a test that fails for the
    reason in the scope, then the least code that makes it pass, one slice at a
    time. Use subagents only for independent changes in different files. Note
    problems outside the scope; do not fix them. Leave cleanup to review.
