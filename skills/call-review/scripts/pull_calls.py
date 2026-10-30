@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# ///
 """Pull production Abita calls read-only and render them for review.
 
 Usage: pull_calls.py --date YYYY-MM-DD [--days N] --out DIR [--s2s PATH]
