@@ -51,7 +51,9 @@ the worst of it into prompt and code fixes.
    Done when: every high-severity finding is marked `verified` or `rejected`.
 
 5. **Report** using the output template. Group findings into patterns by
-   cause, not by call.
+   cause, not by call. Calls can be weeks old, so for each pattern run
+   `git log <live tag>..origin/main -- <file>` in `abita_s2s`; a cause already
+   changed on `main` is reported as `fixed in <commit>`, not as a new fix.
    Done when: the report is written.
 
 6. **Post** the report to Slack `#product` (`C0C0KP8707R`). First reread it for
