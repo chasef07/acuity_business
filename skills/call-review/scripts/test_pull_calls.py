@@ -92,6 +92,18 @@ class Render(unittest.TestCase):
         self.assertIn(long_output, text)
         self.assertIn("[01:30] agent (interrupted): Monday works", text)
 
+    def test_header_shows_call_labels_and_parses_five_digit_fractions(self):
+        text = pull_calls.render_call(
+            1,
+            call(
+                started_at="2026-10-07T14:00:00.07197+00:00",
+                closeout={"evaluation": {"classification": {
+                    "status": "complete", "intent": "new_patient_booking", "outcome": "abandoned"}}},
+            ),
+        )
+        self.assertIn("- Labels: intent new_patient_booking, outcome abandoned (complete)", text)
+        self.assertIn("duration 149s", text)
+
 
 class Stats(unittest.TestCase):
     def test_counts_silence_transfers_tools_and_tasks(self):

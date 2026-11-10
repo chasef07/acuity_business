@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# ///
 """Pull production Abita calls read-only and render them for review.
 
 Usage: pull_calls.py --date YYYY-MM-DD [--days N] --out DIR [--s2s PATH]
@@ -176,6 +179,7 @@ def transcript_lines(c):
 def render_call(number, c):
     closeout = c.get("closeout") or {}
     evaluation = closeout.get("evaluation") or {}
+    labels = evaluation.get("classification") or {}
     started = datetime.fromisoformat(c["started_at"]).astimezone(ZONE)
     duration = "UNKNOWN"
     if c.get("ended_at"):
@@ -188,6 +192,7 @@ def render_call(number, c):
         f"- Service: {c.get('service_subject')}, prompts {prompt_tag(c) or 'UNKNOWN'}",
         f"- Status: {c.get('status')}, outcome {c.get('appointment_outcome')}",
         f"- Close: {closeout.get('closeReason')}, transfer {closeout.get('transferStatus')}",
+        f"- Labels: intent {labels.get('intent')}, outcome {labels.get('outcome')} ({labels.get('status', 'missing')})",
         "",
         f"## Judges ({evaluation.get('status', 'missing')})",
         "",
