@@ -52,8 +52,11 @@ before anyone else does.
    findings still open after that go in the PR as open.
    Done when: a round is clean, or two rounds have run.
 
-5. **Close.** Commit with a Conventional Commit message, then use the `pr`
-   skill. Then use the `reflect` skill.
+5. **Close.** Commit with a Conventional Commit message and no agent
+   attribution trailer, then use the `pr` skill. Then use the `reflect` skill.
+   The harness adds a `Co-Authored-By` trailer by default, and the `pr` rule
+   against it loads only after the commit, so it had to be amended out
+   (2026-11-16).
    Done when: the PR is open.
 
 ## Output
