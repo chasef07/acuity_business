@@ -47,6 +47,7 @@ flowchart TD
 | `issue` | Write ACU Linear issues an agent can build: one repo, testable criteria, named proof, readiness check before Todo. |
 | `pr` | One PR format for every repo: problem, summary, evidence, principles, risk. |
 | `acuity-brand-design` | Acuity-branded visuals, decks, and documents. |
+| `mac-cleanup` | Audit and clean a Mac before a migration; moves to the Trash, never deletes. |
 
 Nothing waits for approval mid-run. The PRs are the checkpoint: merging a PR
 approves it, closing it rejects it.
