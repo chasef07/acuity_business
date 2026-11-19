@@ -372,16 +372,17 @@ def level(entry):
 
 
 def summarize_gauges(entries):
-    """Latest and peak of each numeric gauge field, per metric and runtime role."""
+    """First, latest, and peak of each numeric gauge field, per metric and runtime role."""
     out = {}
     for e in sorted(entries, key=lambda e: e["timestamp"]):
         p = e.get("jsonPayload") or {}
         key = f'{p.get("metric")}/{p.get("runtime_role")}'
-        g = out.setdefault(key, {"latest_at": None, "latest": {}, "peak": {}})
+        g = out.setdefault(key, {"latest_at": None, "first": {}, "latest": {}, "peak": {}})
         g["latest_at"] = e["timestamp"]
         for field, value in p.items():
             if field in GAUGE_SKIP or not isinstance(value, (int, float)):
                 continue
+            g["first"].setdefault(field, value)
             g["latest"][field] = value
             g["peak"][field] = max(g["peak"].get(field, value), value)
     return out
