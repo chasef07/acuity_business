@@ -26,7 +26,16 @@ faster, or correct, and file them in Linear so they get fixed.
    the last 7 days, plus one rotating module per repo chosen by ISO week.
    Done when: the script exits 0 and prints the `scope.json` path.
 
-2. **Fan out.** Start four fresh read-only subagents in parallel, one per
+2. **Recheck open kaizen issues.** Search ACU for `kaizen:` issues in Todo,
+   Backlog, or Triage. For each, check at the scoped `sha` that the
+   fingerprint's symbol and the quoted problem still exist. Fixed by a commit:
+   comment with the commit and set Done. Code gone: comment why and set
+   Canceled. Moved but still true: add a dated update with the new paths.
+   Refactors make these stale within days (2026-10-25: 5 of 24 open kaizen
+   issues were already fixed or obsolete, and one named a deleted function).
+   Done when: every open kaizen issue holds at `sha`, or is closed or updated.
+
+3. **Fan out.** Start four fresh read-only subagents in parallel, one per
    lens: `bugs`, `duplication`, `deletion`, `performance`. Give each
    `references/reviewer-brief.md` filled with its lens rules, the scope from
    `scope.json` (each repo's `root`, `checkout`, `sha`, and file lists), and
@@ -34,27 +43,27 @@ faster, or correct, and file them in Linear so they get fixed.
    Done when: each lens has a findings file, or its reviewer is reported as
    `FAILED`.
 
-3. **Verify.** Open the code for every finding and confirm the quote, the
+4. **Verify.** Open the code for every finding and confirm the quote, the
    line, and the trace yourself. Reviewers misread callers and miss upstream
    validation. Drop anything that does not hold, anything that matches a
    pattern the repo documents on purpose, and anything that would remove a
    safety check without a replacement.
    Done when: every finding is marked `verified` or `rejected` with one line why.
 
-4. **Remove duplicates against Linear.** Each finding's fingerprint is
+5. **Remove duplicates against Linear.** Each finding's fingerprint is
    `kaizen:<repo>/<path>#<symbol>/<lens>`. Search ACU issue text for
    `kaizen:` in every state, including done and canceled. Drop a finding whose
    fingerprint, or the same symbol and problem, is already open, done, or
    canceled. A canceled issue means "we decided no"; never refile it.
    Done when: every verified finding is `new` or `duplicate of ACU-n`.
 
-5. **Pick at most five.** Rank the new findings: confirmed bugs first, then
+6. **Pick at most five.** Rank the new findings: confirmed bugs first, then
    the largest safe deletions and deduplications, then performance findings
    with the strongest evidence. Prefer one structural change over several
    small ones in the same place. Fewer than five, or zero, is a valid week.
    Done when: the picked list is final.
 
-6. **File.** Write each pick with the `issue` skill's template
+7. **File.** Write each pick with the `issue` skill's template
    (`~/acuity_business/skills/issue/references/template.md`) and file it in
    ACU, project `Maintenance`. Labels: the Repository label
    (`acuity_product`, `abita_s2s`, or `abita_middleware` for amd_middleware),
@@ -63,7 +72,7 @@ faster, or correct, and file them in Linear so they get fixed.
    status Todo; if one does not, leave it in Triage and list what is missing.
    Done when: every pick has an ACU identifier.
 
-7. **Post** the digest to Slack `#product` (`C0C0KP8707R`).
+8. **Post** the digest to Slack `#product` (`C0C0KP8707R`).
    Done when: the message link is in the reply.
 
 ## Issue fields
@@ -87,6 +96,7 @@ Fill the `issue` template from the finding:
 - <ACU-n> <title> (<lens>, <repo>)
 
 Scope: <repo>: <area> + <n> hot files, for each repo
+Rechecked: <n> open, <k> closed, <m> updated
 Dismissed: <count verified-but-not-picked>, <count rejected>, <count duplicates>
 <one line per rejected finding a human might disagree with>
 ```
